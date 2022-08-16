@@ -15,8 +15,8 @@ GravityTDS tds;
 #include <WiFi.h> 
 #include <WiFiUdp.h>
 
-#define WIFI_SSID "rohmxx-GalaxyA51"
-#define WIFI_PASSWORD "hahahihi"
+#define WIFI_SSID "Wifi Ruang KKPI"
+#define WIFI_PASSWORD ""
 
 //Init NTP
 #include <NTPClient.h>
@@ -462,6 +462,12 @@ void setup() {
 }
 
 void loop() {
+
+  if(WiFi.status() != WL_CONNECTED) {
+    initWiFi();
+    timeClient.begin();
+    configTime(7, 25200, "pool.ntp.org");
+  }
 
   for(int j=0;j<100;j++) while(digitalRead(water_level)==0){       // ketika air dalam bak kosong
     digitalWrite(solenoid, LOW);                                  // kran elektrik buka, air mengisi
